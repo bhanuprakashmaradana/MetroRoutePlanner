@@ -1,0 +1,5 @@
+*.o
+metro_planner
+*.exe
+.vscode/
+.DS_Store
