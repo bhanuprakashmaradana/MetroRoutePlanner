@@ -11,21 +11,21 @@ class Graph{
     public:
 
     // loads the data from csv files
-    bool loadfromCSV(const std::string& data);
+    bool loadfromCSV( std::string& data);
 
     //adds connection to the graph and here for primitive arguments we don' pass by refernce and for others we use pass by refernce
     // example for primitive int,float
-    void AddConnection(const std::string& staA,const std::string& staB, int ,const std::string line);
+    void AddConnection( std::string& staA, std::string& staB, int travelminutes , std::string& line);
 
-    bool hasStation(const std::string& name) const;
+    bool hasStation( std::string& name) ;
 
-    const std::vector<Edge>& getNeighbhours(const std::string& sta) const;
+     std::vector<Edge>& getNeighbhours( std::string& sta) ;
         //reurn all the station in the graph or network
-    const std::vector<Edge> getAllStation() const;
+     std::vector<std::string> getAllStation() ;
 
         // return all the stations inline function
-    size_t allStations() const {return adjacencyList.size();}
-    size_t EdgeCount() const {return totalEdges;}
+    size_t allStations()  {return adjacencyList.size();}
+    size_t EdgeCount()  {return totalEdges;}
 
     private:
 
@@ -34,7 +34,7 @@ class Graph{
 
     // if a edge not there and for the lookupmisses for getneighbhous
     //which will succsfully returns a empty list
-    static const std::vector<Edge> emptylist;
+    static  std::vector<Edge> emptylist;
 
 };
 
