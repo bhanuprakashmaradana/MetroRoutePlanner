@@ -5,7 +5,7 @@
 struct Edge{
     std::string Destination;
     int weight;
-    std::string line;
+    // std::string line;
 
 };
 // to take the raw data from the input csv files
@@ -14,7 +14,8 @@ struct StationConnection {
     std::string Station_A;
     std::string Station_B;
     int Time;
-    std::string Line; 
+    // std::strin
+    // g Line; 
 };
 
 

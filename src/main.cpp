@@ -75,7 +75,7 @@ static void printMenu() {
 
 int main(int argc, char* argv[]) {
     Graph graph;
-    string dataPath = (argc > 1) ? argv[1] : "data/metro_network.csv";
+    string dataPath = (argc > 1) ? argv[1] : "tests/metro_network.csv";
 
     cout << "Loading metro network from " << dataPath << " ...\n";
     if (!graph.loadfromCSV(dataPath)) {

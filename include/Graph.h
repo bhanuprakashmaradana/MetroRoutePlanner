@@ -14,11 +14,11 @@ class Graph{
 
     //adds connection to the graph and here for primitive arguments we don' pass by refernce and for others we use pass by refernce
     // example for primitive int,float
-    void AddConnection( std::string& staA, std::string& staB, int travelminutes , std::string& line);
+    void AddConnection( std::string& staA, std::string& staB, int travelminutes);
 
     bool hasStation( std::string& name) ;
 
-     std::vector<Edge>& getNeighbours( std::string& sta) ;
+     std::vector<Edge> getNeighbours( std::string& sta) ;
         //reurn all the station in the graph or network
      std::vector<std::string> getAllStation() ;
 
@@ -29,11 +29,10 @@ class Graph{
     private:
 
     std::unordered_map<std::string, std::vector<Edge>> adjacencyList;
-    size_t totalEdges;
+    size_t totalEdges = 0;
 
     // if a edge not there and for the lookupmisses for getneighbhous
     //which will succsfully returns a empty list
-    static  std::vector<Edge> emptylist;
 
 };
 

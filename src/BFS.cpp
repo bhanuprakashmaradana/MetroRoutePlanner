@@ -48,6 +48,9 @@ RouteResult findRouteBFS( Graph& graph, string& source, string& destination) {
     string node = destination;
     while (node != source) {
         path.push_back(node);
+        if (parent.find(node) == parent.end()) {
+            return result;
+        }
         node = parent[node];
     }
     path.push_back(source);

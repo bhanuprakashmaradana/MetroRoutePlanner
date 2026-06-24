@@ -23,21 +23,22 @@ RouteResult findRouteDijkstra( Graph& graph, string& source, string& destination
     using PQItem = pair<int, string>;
     priority_queue<PQItem, vector<PQItem>, greater<PQItem>> pq;
 
-    for (const auto& station : graph.getAllStation()) {
+    for ( auto& station : graph.getAllStation()) {
         dist[station] = numeric_limits<int>::max();
     }
     dist[source] = 0;
     pq.push({0, source});
 
     while (!pq.empty()) {
-        auto [currentDist, current] = pq.top();
+        int currentDist=pq.top().first;
+        string current = pq.top().second;
         pq.pop();
 
        
         if (currentDist > dist[current]) continue;
         if (current == destination) break; // early exit once settled
 
-        for (const Edge& e : graph.getNeighbours(current)) {
+        for ( Edge& e : graph.getNeighbours(current)) {
             int newDist = currentDist + e.weight;
             if (newDist < dist[e.Destination]) {
                 dist[e.Destination] = newDist;
@@ -55,6 +56,10 @@ RouteResult findRouteDijkstra( Graph& graph, string& source, string& destination
     string node = destination;
     while (node != source) {
         path.push_back(node);
+        if (parent.find(node) == parent.end()) {
+            // No parent found — path reconstruction broken, no route exists
+            return result;
+        }
         node = parent[node];
     }
     path.push_back(source);
@@ -66,3 +71,4 @@ RouteResult findRouteDijkstra( Graph& graph, string& source, string& destination
     result.totalTravelTimeMinutes = dist[destination];
     return result;
 }
+ 

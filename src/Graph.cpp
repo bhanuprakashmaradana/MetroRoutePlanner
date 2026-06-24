@@ -4,46 +4,54 @@
 #include<sstream>
  using namespace std;
  
-  vector<Edge> Graph::emptylist;
 
- void Graph::AddConnection( string& A, string& B,int travelMinutes, string& line ){
-    adjacencyList[A].push_back({B,travelMinutes,line});
-    adjacencyList[B].push_back({A,travelMinutes,line});
+ void Graph::AddConnection( string& A, string& B,int travelMinutes ){
+    adjacencyList[A].push_back({B,travelMinutes});
+    adjacencyList[B].push_back({A,travelMinutes});
     totalEdges++;
  }
- bool Graph::loadfromCSV(std::string& filepath){
-    std::ifstream file(filepath);
+ bool Graph::loadfromCSV(string& filepath){
+    ifstream file(filepath);
     if (!file.is_open()) {
-        std::cerr << "Error: could not open data file: " << filepath << "\n";
+        cerr << "Error: could not open data file: " << filepath << "\n";
         return false;
     }
 
-    std::string line;
+    string line;
     bool isHeader = true;
     int lineNumber = 0;
 
-    while (std::getline(file, line)) {
+    while (getline(file, line)) {
         lineNumber++;
-        if (isHeader) { isHeader = false; continue; } // skip CSV header row
+        if (isHeader) { isHeader = false; continue; } 
         if (line.empty()) continue;
 
-        std::stringstream ss(line);
-        std::string stationA, stationB, weightStr, lineName;
+        stringstream ss(line);
+        string stationA, stationB, weightStr;
 
-        if (!std::getline(ss, stationA, ',') ||
-            !std::getline(ss, stationB, ',') ||
-            !std::getline(ss, weightStr, ',') ||
-            !std::getline(ss, lineName, ',')) {
-            std::cerr << "Warning: malformed row at line " << lineNumber
+        if (!getline(ss, stationA, ',') ||
+            !getline(ss, stationB, ',') ||
+            !getline(ss, weightStr, ',') 
+            ) {
+            cerr << "Warning: malformed row at line " << lineNumber
                       << ", skipping.\n";
             continue;
         }
+         auto trimStr = [](string s) {
+            size_t start = s.find_first_not_of(" \t\r\n");
+            size_t end   = s.find_last_not_of(" \t\r\n");
+            if (start == string::npos) return string("");
+            return s.substr(start, end - start + 1);
+        };
+        stationA  = trimStr(stationA);
+        stationB  = trimStr(stationB);
+        weightStr = trimStr(weightStr);
 
         try {
-            int weight = std::stoi(weightStr);
-            AddConnection(stationA, stationB, weight, lineName);
-        } catch (const std::exception&) {
-            std::cerr << "Warning: invalid travel time at line " << lineNumber
+            int weight = stoi(weightStr);
+            AddConnection(stationA, stationB, weight);
+        } catch (exception&) {
+            cerr << "Warning: invalid travel time at line " << lineNumber
                       << ", skipping.\n";
         }
     }
@@ -59,9 +67,9 @@
  }
 
 
- vector<Edge>& Graph::getNeighbours(string& sta){
+ vector<Edge> Graph::getNeighbours(string& sta){
    if(hasStation(sta)) return adjacencyList[sta];
-   return emptylist;
+   return {};
  }
 
 
