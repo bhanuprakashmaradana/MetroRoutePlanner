@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
-
-RouteResult findRouteBFS( Graph& graph, std::string& source, std::string& destination) {
+using namespace std;
+RouteResult findRouteBFS( Graph& graph, string& source, string& destination) {
     RouteResult result;
 
     if (!graph.hasStation(source) || !graph.hasStation(destination)) {
@@ -17,16 +17,16 @@ RouteResult findRouteBFS( Graph& graph, std::string& source, std::string& destin
     }
 
    
-    std::queue<std::string> frontier;
-    std::unordered_set<std::string> visited;
-    std::unordered_map<std::string, std::string> parent;
+    queue<string> frontier;
+    unordered_set<string> visited;
+    unordered_map<string, string> parent;
 
     frontier.push(source);
     visited.insert(source);
 
     bool reached = false;
     while (!frontier.empty() && !reached) {
-        std::string current = frontier.front();
+        string current = frontier.front();
         frontier.pop();
 
         for (const Edge& e : graph.getNeighbours(current)) {
@@ -44,14 +44,14 @@ RouteResult findRouteBFS( Graph& graph, std::string& source, std::string& destin
 
     if (!reached) return result; 
 
-    std::vector<std::string> path;
-    std::string node = destination;
+    vector<string> path;
+    string node = destination;
     while (node != source) {
         path.push_back(node);
         node = parent[node];
     }
     path.push_back(source);
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
 
    
     int totalTime = 0;
