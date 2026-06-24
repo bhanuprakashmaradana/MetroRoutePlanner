@@ -4,7 +4,7 @@
 // to store effective optimal information
 struct Edge{
     std::string Destination;
-    int Time;
+    int weight;
     std::string line;
 
 };

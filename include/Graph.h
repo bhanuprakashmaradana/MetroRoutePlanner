@@ -5,7 +5,6 @@
 #include<unordered_map>
 #include<vector>
 #include "station.h"
-// take inputs and storing the data in graph
 class Graph{
     
     public:
@@ -19,7 +18,7 @@ class Graph{
 
     bool hasStation( std::string& name) ;
 
-     std::vector<Edge>& getNeighbhours( std::string& sta) ;
+     std::vector<Edge>& getNeighbours( std::string& sta) ;
         //reurn all the station in the graph or network
      std::vector<std::string> getAllStation() ;
 

@@ -59,7 +59,7 @@
  }
 
 
- vector<Edge>& Graph::getNeighbhours(string& sta){
+ vector<Edge>& Graph::getNeighbours(string& sta){
    if(hasStation(sta)) return adjacencyList[sta];
    return emptylist;
  }
